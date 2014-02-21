@@ -3,7 +3,9 @@ package com.elex.bigdata.commonmr.mapper;
 import com.elex.bigdata.commonmr.CommonMRConstants;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.InputSplit;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 
 import java.io.IOException;
 
