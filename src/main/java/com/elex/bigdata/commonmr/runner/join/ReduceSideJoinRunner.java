@@ -27,13 +27,13 @@ public class ReduceSideJoinRunner {
       return;
     }
 
-    String inputRight = args[0];
-    String inputLeft = args[1];
+    String inputLeft = args[0];
+    String inputRight = args[1];
 
     Configuration conf = new Configuration();
     Job job = Job.getInstance(conf);
     job.setJarByClass(ReduceSideJoinRunner.class);
-    job.setJobName("ReduceSideJoin(" + inputRight + ", " + inputLeft + ")");
+    job.setJobName("ReduceSideJoin(" + inputLeft + ", " + inputRight + ")");
 
     job.setMapperClass(ReduceSideJoinMapper.class);
     job.setReducerClass(ReduceSideJoinReducer.class);
@@ -42,9 +42,8 @@ public class ReduceSideJoinRunner {
     job.setMapOutputValueClass(Text.class);
     job.setOutputKeyClass(Text.class);
     job.setOutputValueClass(NullWritable.class);
-    MultipleInputs.addInputPath(job, new Path(inputRight), TextInputFormat.class, ReduceSideJoinMapper.class);
     MultipleInputs.addInputPath(job, new Path(inputLeft), TextInputFormat.class, ReduceSideJoinMapper.class);
-
+    MultipleInputs.addInputPath(job, new Path(inputRight), TextInputFormat.class, ReduceSideJoinMapper.class);
     FileOutputFormat.setOutputPath(job, new Path(args[2]));
 
     try {
