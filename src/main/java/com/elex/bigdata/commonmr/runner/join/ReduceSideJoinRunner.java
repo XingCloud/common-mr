@@ -7,6 +7,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -42,8 +43,10 @@ public class ReduceSideJoinRunner {
     job.setMapOutputValueClass(Text.class);
     job.setOutputKeyClass(Text.class);
     job.setOutputValueClass(NullWritable.class);
-    MultipleInputs.addInputPath(job, new Path(inputLeft), TextInputFormat.class, ReduceSideJoinMapper.class);
-    MultipleInputs.addInputPath(job, new Path(inputRight), TextInputFormat.class, ReduceSideJoinMapper.class);
+    FileInputFormat.addInputPath(job, new Path(inputLeft));
+    FileInputFormat.addInputPath(job, new Path(inputRight));
+//    MultipleInputs.addInputPath(job, new Path(inputLeft), TextInputFormat.class, ReduceSideJoinMapper.class);
+//    MultipleInputs.addInputPath(job, new Path(inputRight), TextInputFormat.class, ReduceSideJoinMapper.class);
     FileOutputFormat.setOutputPath(job, new Path(args[2]));
 
     try {

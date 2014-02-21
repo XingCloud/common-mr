@@ -18,7 +18,7 @@ public class ReduceSideJoinMapper extends Mapper<Object, Text, Text, Text> {
     if (line.length() < 1) {
       return;
     }
-    InputSplit inputSplit = (InputSplit) context.getInputSplit();
+    InputSplit inputSplit = context.getInputSplit();
     String filename = ((FileSplit) inputSplit).getPath().getName();
     context.write(new Text(line), new Text(filename));
   }
